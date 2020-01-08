@@ -1,5 +1,7 @@
 package com.github.hd0a.algo;
 
+import java.util.Stack;
+
 /**
  * Day 09 - Binary tree traversal
  * all these orders depend on where we access current node
@@ -17,6 +19,20 @@ public class TreeTraversal {
         preOrderTraverse(tree.rightChild);
     }
 
+    public static void preOrderTraverseStack(SimpleTree tree) {
+        Stack<SimpleTree> nodeStack = new Stack<>();
+        if (tree == null) {
+            return;
+        }
+        nodeStack.push(tree);
+        while (!nodeStack.isEmpty()) {
+            SimpleTree current = nodeStack.pop();
+            System.out.printf("%d ", current.value);
+            if (current.rightChild != null) nodeStack.push(current.rightChild);
+            if (current.leftChild != null) nodeStack.push(current.leftChild);
+        }
+    }
+
     public static void inOrderTraverse(SimpleTree tree) {
         if (tree == null) {
             return;
@@ -24,6 +40,22 @@ public class TreeTraversal {
         inOrderTraverse(tree.leftChild);
         System.out.printf("%d ", tree.value);
         inOrderTraverse(tree.rightChild);
+    }
+
+    public static void inOrderTraverseStack(SimpleTree tree) {
+        if (tree == null) return;
+        Stack<SimpleTree> nodeStack = new Stack<>();
+        SimpleTree current = tree;
+
+        while (current != null || !nodeStack.isEmpty()) {
+            while (current != null) {
+                nodeStack.push(current);
+                current = current.leftChild;
+            }
+            current = nodeStack.pop();
+            System.out.printf("%d ", current.value);
+            current = current.rightChild;
+        }
     }
 
     public static void postOrderTraverse(SimpleTree tree) {
@@ -44,11 +76,21 @@ public class TreeTraversal {
         tree.rightChild.leftChild = new SimpleTree(6);
 
         System.out.println("InOrder::");
+        System.out.print("Recursive   :");
         inOrderTraverse(tree);
+        System.out.println();
+        System.out.print("Stack based :");
+        inOrderTraverseStack(tree);
+        System.out.println();
         System.out.println();
 
         System.out.println("PreOrder::");
+        System.out.print("Recursive   :");
         preOrderTraverse(tree);
+        System.out.println();
+        System.out.print("Stack based :");
+        preOrderTraverseStack(tree);
+        System.out.println();
         System.out.println();
 
         System.out.println("PostOrder::");
