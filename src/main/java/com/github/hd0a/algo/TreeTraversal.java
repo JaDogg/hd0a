@@ -67,6 +67,27 @@ public class TreeTraversal {
         System.out.printf("%d ", tree.value);
     }
 
+    public static void postOrderTraverseTwoStack(SimpleTree tree) {
+        if (tree == null) return;
+        Stack<SimpleTree> nodeStack = new Stack<>();
+        Stack<SimpleTree> elements = new Stack<>();
+        nodeStack.push(tree);
+        while (!nodeStack.isEmpty()) {
+            SimpleTree current = nodeStack.pop();
+            elements.push(current);
+            if (current.leftChild != null) {
+                nodeStack.push(current.leftChild);
+            }
+            if (current.rightChild != null) {
+                nodeStack.push(current.rightChild);
+            }
+        }
+
+        while (!elements.isEmpty()) {
+            System.out.printf("%d ", elements.pop().value);
+        }
+    }
+
     public static void main(String[] args) {
         SimpleTree tree = new SimpleTree(1);
         tree.leftChild = new SimpleTree(2);
@@ -94,7 +115,12 @@ public class TreeTraversal {
         System.out.println();
 
         System.out.println("PostOrder::");
+        System.out.print("Recursive   :");
         postOrderTraverse(tree);
+        System.out.println();
+        System.out.print("2Stack based:");
+        postOrderTraverseTwoStack(tree);
+        System.out.println();
         System.out.println();
     }
 }
