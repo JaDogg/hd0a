@@ -1,5 +1,6 @@
-package com.github.hd0a.algo;
+package com.github.hd0a.algo.review;
 
+// Ignore this this is a code review question copied - not my code
 public class CountingDuplicates {
       public static int duplicateCount(String text) {
       String textLower = text.toLowerCase();
