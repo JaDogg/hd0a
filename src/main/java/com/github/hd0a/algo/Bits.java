@@ -30,4 +30,6 @@ public final class Bits {
         int mask = ~(1 << bit);
         return (num & mask) | (value << bit);
     }
+
+    // TODO Clear bits!
 }
