@@ -20,8 +20,7 @@ public class BinaryIndexedTree {
      * @param originalArray original array to process
      */
     public BinaryIndexedTree(long[] originalArray) {
-        Objects.requireNonNull(originalArray);
-        this.size = originalArray.length;
+        this.size = Objects.requireNonNull(originalArray).length;
         internalData = new long[size + 1];
         for (int i = 0; i < size; i++) {
             increase(i, originalArray[i]);
